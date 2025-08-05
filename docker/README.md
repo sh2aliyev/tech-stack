@@ -374,8 +374,6 @@ You don't need to do anything if you install Docker as shown in the [Docker Inst
 
 <details><summary>Example #1</summary>
 
-> Set up an environment for running a containerized application, specifically targeting a development scenario.
-
 ```yaml
 services:
   my_app: # The name of the service
