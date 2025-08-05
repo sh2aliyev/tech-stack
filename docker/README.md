@@ -513,8 +513,6 @@ Docker networking refers to the mechanisms and features within the Docker platfo
 
     > When using Docker Compose, networks are automatically established, allowing all services defined within the compose file to seamlessly communicate using their service names. Furthermore, network settings can be customized through the compose file. Check [The Compose file](#-the-compose-file) section.
 
-    > Example: From the Node.js app container to the Redis container (as illustrated in [compose file](#-the-compose-file) example #2).
-    >
     > ```js
     > const client = redis.createClient({
     >   host: "redis-server",
@@ -524,6 +522,11 @@ Docker networking refers to the mechanisms and features within the Docker platfo
 
   > [!NOTE]
   > You don’t need to expose any ports when there is only a container-to-container connection. Internal networking can function without requiring any port exposure.
+
+- **Host Machine ➡ Container**
+  > To allow the host machine to access services running inside a container, the container just needs to expose the relevant ports.
+
+<br>
 
 If you're interested in delving deeper into Docker Networking, I recommend starting by watching this video: https://youtu.be/bKFMS5C4CG0.
 
