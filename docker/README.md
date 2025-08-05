@@ -378,46 +378,50 @@ You don't need to do anything if you install Docker as shown in the [Docker Inst
 
 ```yaml
 services:
-  # the name of the service being defined:
-  my_app:
-    # service should be built using the Dockerfile found in the current directory:
-    build: .
-    # keep Standard input (stdin) open:
-    stdin_open: true
-    # allocate a pseudo-TTY:
-    tty: true
-    # map ports:
-    ports:
-      # port 3000 of the host to port 80 of the container:
-      - "3000:80"
-      # port 9229 of the host to port 9229 of the container:
-      - "9229:9229"
-    # set up a bind mount:
+  my_app: # The name of the service
+    build: . # Build the Docker image from the Dockerfile in the current directory
+    stdin_open: true # Keep STDIN open even if not attached (useful for development/debugging)
+    tty: true # Allocate a pseudo-TTY (terminal) for the container (keeps the container running)
+    ports: # Expose ports to the host machine
+      - "3000:80" # Map port 3000 on the host to port 80 in the container
+      - "9229:9229" # Map port 9229 on the host to port 9229 in the container
     volumes:
-      - ./:/srv/www # it maps the current directory on the host to the /srv/www directory inside the container.
+      - ./:/srv/www # Mount the current directory to /srv/www in the container (bind mount).
 ```
 
 </details>
 
 <details><summary>Example #2</summary>
 
-> Running a Redis server alongside a Node.js application in a containerized environment.
-
 ```yaml
 services:
-  # the name of the first service being defined:
-  redis-server:
-    # the service should use the official Redis Docker image:
-    image: "redis"
-  # the name of the second service being defined:
-  node-app:
-    # service should be built using the Dockerfile found in the current directory:
-    build: .
-    # map port 3000 of the host to port 80 of the container:
+  app:
+    container_name: my-app # Name of the container
+    image: node:22.18.0-alpine # Use the given image as the base for the container
     ports:
-      - "3000:80"
-    # the service should always be restarted if it stops for any reason:
-    restart: always
+      - "3000:3000"
+    volumes:
+      - ./:/srv/www
+    working_dir: "/srv/www/app" # Set working directory inside the container. So that commands run in this context
+    command: npm run dev # Define the command to run when the container starts
+    stdin_open: true
+    tty: true
+    depends_on:
+      - database # Wait for the database service to start first
+  database: # The name of the service #2
+    container_name: my-database
+    restart: always # Always restart the container if it stops
+    image: postgres:17.5-alpine
+    ports:
+      - "5432:5432"
+    environment: # Environment variables for the database
+      POSTGRES_USER: myuser
+      POSTGRES_DB: mydb
+      POSTGRES_PASSWORD: password123321
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persist database data on the host (named volume)
+volumes:
+  db_data: # Define a named volume for database persistence (you need to define it here because db_data is a named volume)
 ```
 
 </details>
