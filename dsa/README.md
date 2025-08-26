@@ -85,17 +85,13 @@ By analyzing the complexity of an algorithm, we can understand how it will perfo
   > Algorithms with a time complexity that grows logarithmically with the input size 'n' are often multiplied by a linear factor. This type of complexity often arises in algorithms that employ the Divide and Conquer approach.
 - `O(n^2)`: Quadratic. _(Example: Bubble Sort)_
   > This type of algorithm compares each element of the input with every other element, resulting in nested loops and potentially slow performance for large inputs.
-- `O(n^3)` - Cubic.
-  > Algorithms with triple nested loops, where each element needs to be compared or operated on with every other element.
 - `O(2^n)`: Exponential. _(Example: Power Set Generation)_
   > These algorithms grow exponentially with the input size, often resulting from recursive approaches that generate all possible combinations or subsets.
-- `O(n!)`: - Factorial.
-  > Algorithms with factorial time complexity typically involve generating permutations or combinations by iterating through all possible orderings or selections of the input elements.
 
 <br>
 
 <p align="center">
-  <img src="./bigO.png" height="auto" width="500">
+  <img src="./bigO.png" height="auto" width="auto">
 </p>
 
 <br>
